@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Car Price Prediction Result</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .result-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .result-header {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .result-header h1 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .prediction-section {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-bottom: 1px solid #eee;
+        }
+
+        .prediction-label {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .prediction-value {
+            font-size: 48px;
+            color: #4CAF50;
+            font-weight: 600;
+            margin: 20px 0;
+        }
+
+        .car-details {
+            padding: 40px;
+            background: white;
+        }
+
+        .car-details h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #4CAF50;
+        }
+
+        .details-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 20px;
+        }
+
+        .details-table th {
+            background: #f8f9fa;
+            color: #333;
+            font-weight: 500;
+            padding: 15px;
+            text-align: left;
+            border-bottom: 2px solid #4CAF50;
+        }
+
+        .details-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            color: #666;
+        }
+
+        .details-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .details-table tr:hover td {
+            background-color: #f8f9fa;
+        }
+
+        .button-container {
+            padding: 40px;
+            text-align: center;
+            background: #f8f9fa;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.2);
+            margin: 0 10px;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #666;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #4CAF50;
+        }
+
+        @media (max-width: 768px) {
+            .result-container {
+                margin: 20px;
+            }
+            
+            .result-header {
+                padding: 30px 20px;
+            }
+            
+            .prediction-section,
+            .car-details {
+                padding: 30px 20px;
+            }
+
+            .prediction-value {
+                font-size: 36px;
+            }
+
+            .button {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="result-container">
+        <div class="result-header">
+            <h1>Car Price Prediction Result</h1>
+        </div>
+        
+        <div class="prediction-section">
+            <div class="prediction-label">Estimated Price</div>
+            <div class="prediction-value">${{ "%.2f"|format(prediction) }}</div>
+        </div>
+
+        <div class="car-details">
+            <h2>Car Specifications</h2>
+            <table class="details-table">
+                <tr>
+                    <th>Feature</th>
+                    <th>Value</th>
+                </tr>
+                {% for feature in feature_names %}
+                <tr>
+                    <td>{{ feature }}</td>
+                    <td>{{ input_data[feature] }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <div class="button-container">
+            <a href="/predict" class="button">Make Another Prediction</a>
+            <a href="/" class="button">Back to Upload</a>
+        </div>
+    </div>
+</body>
+</html> 

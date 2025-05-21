@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Dataset</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .upload-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .upload-header {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .upload-header h1 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .upload-header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .upload-section {
+            padding: 40px;
+            background: white;
+        }
+
+        .upload-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            display: block;
+        }
+
+        .file-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px dashed #4CAF50;
+            border-radius: 10px;
+            background: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-input:hover {
+            background: #f0f0f0;
+            border-color: #45a049;
+        }
+
+        .file-input::file-selector-button {
+            padding: 10px 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .file-input::file-selector-button:hover {
+            background: #45a049;
+        }
+
+        .button-container {
+            padding: 40px;
+            text-align: center;
+            background: #f8f9fa;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.2);
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .requirements {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .requirements h3 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .requirements ul {
+            list-style: none;
+            padding-left: 20px;
+        }
+
+        .requirements li {
+            color: #666;
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .requirements li::before {
+            content: "•";
+            color: #4CAF50;
+            font-size: 20px;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+
+        @media (max-width: 768px) {
+            .upload-container {
+                margin: 20px;
+            }
+            
+            .upload-header {
+                padding: 30px 20px;
+            }
+            
+            .upload-section {
+                padding: 30px 20px;
+            }
+        }
+
+        .error-message {
+            background-color: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ffcdd2;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="upload-container">
+        <div class="upload-header">
+            <h1>Upload Your Dataset</h1>
+            <p>Upload a CSV file containing car data to train the prediction model</p>
+        </div>
+
+        <div class="upload-section">
+            {% if error %}
+            <div class="error-message">
+                {{ error }}
+            </div>
+            {% endif %}
+
+            <form action="/upload" method="POST" enctype="multipart/form-data" class="upload-form">
+                <div class="form-group">
+                    <label for="file">Select CSV File</label>
+                    <div class="file-input-wrapper">
+                        <input type="file" name="file" id="file" class="file-input" accept=".csv" required>
+                    </div>
+                </div>
+
+                <div class="requirements">
+                    <h3>File Requirements:</h3>
+                    <ul>
+                        <li>File must be in CSV format</li>
+                        <li>Should contain car specifications and price data</li>
+                        <li>First row should contain column headers</li>
+                        <li>Last column should be the target price variable</li>
+                    </ul>
+                </div>
+
+                <div class="button-container">
+                    <button type="submit" class="button">Upload and Train Model</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
